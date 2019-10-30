@@ -17,14 +17,16 @@ app
   .post((req, res) => {
     const { username, content } = req.body;
     if (!username || !content) res.sendStatus(400);
-    const newTweet = {
-      username,
-      content,
-      id: currentId
-    };
-    currentId += 1;
-    tweets.push(newTweet);
-    res.sendStatus(201);
+    else {
+      const newTweet = {
+        username,
+        content,
+        id: currentId
+      };
+      currentId += 1;
+      tweets.push(newTweet);
+      res.sendStatus(201);
+    }
   });
 
 app
@@ -35,16 +37,22 @@ app
     const tweetToEdit = find(id);
     if (!tweetToEdit) res.sendStatus(404);
     if (!content || tweetToEdit.username != username) res.sendStatus(400);
-    tweetToEdit.content = content;
-    res.sendStatus(200);
+    else {
+      tweetToEdit.content = content;
+      res.sendStatus(200);
+    }
   })
   .delete((req, res) => {
     const id = req.params.id;
     if (!find(id)) res.sendStatus(404);
-    tweets = filter(id);
-    res.sendStatus(200);
+    else {
+      tweets = filter(id);
+      res.sendStatus(200);
+    }
   });
 
 app.listen(PORT, () => {
   console.log(`Application running at port ${PORT}`);
 });
+
+module.exports = app;
