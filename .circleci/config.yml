@@ -13,3 +13,21 @@ jobs:
       - run:
           name : Run test
           command: npm run test
+    deploy:
+      machine:
+        image: ubuntu-1604:201903-01
+      steps:
+        - checkout
+        - run:
+            name: "Build docker image"
+            command: docker build -t patt/twitder-ci-pat
+        - run:
+            name: Push to heroku registry container
+            command: |
+              docker login -u _ -p $(heroku auth:token) registry.heroku.com
+              docker tag patt/twitder-ci-pat refistry.heroku.com/twitder-ci-pat/web
+              docker push registry.heroku.com/twitder-co-pat/web
+        - run:
+            name: Release with heroku
+            command: |
+              heroku container:release web -a twitder-ci-pat
