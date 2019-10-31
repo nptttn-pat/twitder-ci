@@ -22,7 +22,7 @@ describe("Initial state", function() {
 });
 
 describe("Normal state", function() {
-  const agent = chai.request.agent(app;
+  const agent = chai.request.agent(app);
   describe("POST /", function() {
     it("should have created response", function(done) {
       agent
