@@ -12,7 +12,7 @@ describe("Initial state", function() {
         .request(app)
         .get("/")
         .end((error, response) => {
-          expect(error).to.be.null;
+          expect(error).to.be.null
           expect(response).to.have.status(200);
           expect(response.body).to.have.lengthOf(0);
           done();
